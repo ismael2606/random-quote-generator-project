@@ -60,6 +60,9 @@ function randomBackgroundColor() {
   document.querySelector('body').style.backgroundColor = `rgb(${colorPicker()}, ${colorPicker()}, ${colorPicker()})` 
 } 
 
+
+document.getElementById('load-quote').addEventListener("click", randomBackgroundColor, false);
+
 //Prints a new quote at intervals of 10 secs
 setInterval(printQuote, 10000);
 
