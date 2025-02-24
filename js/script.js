@@ -1,62 +1,73 @@
 /******************************************
-Treehouse FSJS Techdegree:
-project 1 - A Random Quote Generator
+Project - A Random Quote Generator
 ******************************************/
 
-// For assistance: 
-  // Check the "Project Resources" section of the project instructions
-  // Reach out in your Slack community - https://treehouse-fsjs-102.slack.com/app_redirect?channel=chit-chat
 
-/*** 
- * `quotes` array 
-***/
+//quotes array with source, citation, and tags properties.
 quotes = [{quote: "Do what you can, with what you have, where you are.", source: "Theodore Roosevelt"}, 
           {quote: "The greatest glory in living lies not in never falling, but in rising every time we fall.", source: "Nelson Mandela"},       
-          {quote: "You may say I'm a dreamer, but I'm not the only one.", source: "John Lennon" }, 
+          {quote: "Some people graduate with honors, I am just honored to graduate." , source: " John McEnroe", tags: "humor"}, 
           {quote: "It's not our abilities that show what we truly are... it is our choices.", source: "J.K. Rowling" , citation: " Harry Potter and the Chamber of Secrets" }, 
           {quote:  "I have a dream that one day this nation will rise up and live out the true meaning of its creed.", source: "Martin Luther King Jr." , year: 1963 }
          ];
 
 
-/***
- * `getRandomQuote` function
-***/
+/**
+ * Returns a random number as index using the quotes array.
+ * @return {number} The random number value.
+ */
 function getRandomQuote() {
+  // store random index number
   let randomNumber = Math.floor(Math.random() * quotes.length);
+  //returns random object from the quotes array
   return quotes[randomNumber];
 }
 
 
 
-/***
- * `printQuote` function
-***/
+/**
+ * Creates HTML string to display new quote.
+ */
 function printQuote() {
+  // store index number from quotes array into randomQuote variable
   let randomQuote = getRandomQuote();
+  // build HTML string with the quote and source property values
   let htlmString = `<p class="quote">${randomQuote.quote}</p>
                     <p class="source">${randomQuote.source}`;
 
+  // checks whether the citation, year and tags property exists and concatenate the contents to htmlString variable
   if (randomQuote.citation) {
-    htlmString += ` <span class="citation">${randomQuote.citation}</span></p>`;
+    htlmString += `<span class="citation">${randomQuote.citation}</span></p>`;
   }
   if (randomQuote.year) {
-    htlmString += ` <span class="year">${randomQuote.year}</span></p>`;
+    htlmString += `<span class="year">${randomQuote.year}</span>`;
   }
+  if (randomQuote.tags) {
+    htlmString += `<span class="year">${randomQuote.tags}</span></p>`
+  }
+  //Insert final quote on the page
   document.getElementById('quote-box').innerHTML = htlmString; 
 }
 
 
-
+/**
+ * Generate ramdom background color
+ */
 function randomBackgroundColor() {
+  //Returns number between 0-255 as RGB color value
   let colorPicker = () => Math.floor(Math.random() * 256);
+  //Styles with random RGB color the 'body' element
   document.querySelector('body').style.backgroundColor = `rgb(${colorPicker()}, ${colorPicker()}, ${colorPicker()})` 
 } 
 
-// Display random background color when printing new quote
+// Display random background color when clicking the show quote button
 document.getElementById('load-quote').addEventListener("click", randomBackgroundColor, false);
 
-//Prints a new quote at intervals of 10secs
+//Prints a new quote at intervals of 10 secs
 setInterval(printQuote, 10000);
+
+//Changes background color at invervals of 10 secs
+setInterval(randomBackgroundColor, 10000);
 
 
 
